@@ -1,0 +1,15 @@
+﻿.colorSalmon {
+    background-color:salmon;
+}
+
+.letrasTitulo {
+    font-size: 22px;
+    color: #F0EAD6;
+    font-weight:bold;
+}
+
+.letrasSubTitulo {
+    font-size: 18px;
+    color: #F0EAD6;
+    font-weight: bold;
+}
