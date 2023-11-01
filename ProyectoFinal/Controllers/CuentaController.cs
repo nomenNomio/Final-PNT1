@@ -28,6 +28,20 @@ namespace ProyectoFinal.Controllers
                           Problem("Entity set 'ProyectoFinalDatabaseContext.Cuentas'  is null.");
         }
 
+        public async Task<IActionResult> Login()
+        {
+            return _context.Cuentas != null ?
+                        View(await _context.Cuentas.ToListAsync()) :
+                        Problem("Entity set 'ProyectoFinalDatabaseContext.Cuentas'  is null.");
+        }
+
+        public async Task<IActionResult> Register()
+        {
+            return _context.Cuentas != null ?
+                        View(await _context.Cuentas.ToListAsync()) :
+                        Problem("Entity set 'ProyectoFinalDatabaseContext.Cuentas'  is null.");
+        }
+
         // GET: Cuenta/Details/5
         public async Task<IActionResult> Details(int? id)
         {
