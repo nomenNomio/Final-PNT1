@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoFinal.Context;
 using ProyectoFinal.Models;
+using ProyectoFinal.BDhelper;
 
 namespace ProyectoFinal.Controllers
 {
@@ -25,6 +26,14 @@ namespace ProyectoFinal.Controllers
               return _context.Refugios != null ? 
                           View(await _context.Refugios.ToListAsync()) :
                           Problem("Entity set 'ProyectoFinalDatabaseContext.Refugios'  is null.");
+        }
+        public async Task<IActionResult> CrearRefugio(String nom, String des, String dir, String hor, IFormFile ImageData)
+        {
+            Refugio refu = await BDhelp.CrearRefugio(nom, des, dir, hor, ImageData, _context);
+
+
+            return View(refu);
+
         }
 
         // GET: Refugio/Details/5

@@ -4,10 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Editing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using ProyectoFinal.Context;
 using ProyectoFinal.Models;
+using ProyectoFinal.BDhelper;
+using NuGet.Protocol;
 
 namespace ProyectoFinal.Controllers
 {
@@ -40,6 +43,32 @@ namespace ProyectoFinal.Controllers
             return _context.Cuentas != null ?
                         View(await _context.Cuentas.ToListAsync()) :
                         Problem("Entity set 'ProyectoFinalDatabaseContext.Cuentas'  is null.");
+        }
+
+        public async Task<IActionResult> Registrarse(String usr, String pwd, String eml)
+        {
+            if (await BDhelp.Crear(usr, pwd, eml, _context))
+            {
+                return RedirectToAction("Index", "Mascota");
+            }
+            else {
+                return RedirectToAction("Register", "Cuenta");
+            }
+        }
+
+        public async Task<IActionResult> Loguearse(String usr, String pwd)
+        {
+            Cuenta resultado = await BDhelp.Loguear(usr, pwd, _context);
+
+            if (resultado!=null) {
+                HttpContext.Session.SetString("Nombre", resultado.Nombre);
+                HttpContext.Session.SetString("Email", resultado.Email);
+                HttpContext.Session.SetString("password", resultado.Password);
+                HttpContext.Session.SetInt32("admin", resultado.Admin ? 1 : 0);
+
+            }
+
+            return resultado == null ?  RedirectToAction("Login", "Cuenta") : RedirectToAction("Index", "Mascota");
         }
 
         // GET: Cuenta/Details/5

@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Crear Mascota";
+}
+@{
+    // Since Address isn't a string, it requires a cast.
+    String Nombre = ViewData["RefugioNombre"] as String;
+    String Id = ViewData["RefugioId"] as String;
+}
+
+<h1>Crear Mascota</h1>
+
+<form action="/Mascota/CrearMascota" method="post" enctype="multipart/form-data">
+
+    <input type="text" class="form-control" name="nom" placeholder="Nombre" required autofocus>
+    <input type="text" class="form-control" name="pers" placeholder="Personalidad" required>
+    <input type="text" class="form-control" name="salud" placeholder="Estado de salud" required>
+    <input type="number" class="form-control" name="edad" placeholder="Edad" required>
+    <input type="number" class="form-control" name="cantDue" placeholder="Cantidad de Dueños" required>
+    <input type="number" class="form-control" name="peso" placeholder="Peso" required>
+    <input type="checkbox" class="form-check-input" id="vac" name="vac" value="true" />
+    <label for="vac" class="form-check-label">Vacunado</label>
+    <input type="file" class="form-control" name="ImageData" required>
+    <input class="form-control" value="Nombe del refugio: @Nombre" disabled />
+    <input type="hidden" name="idRefugio" value="@Id" />
+
+    <button class="btn btn-primary" type="submit">
+        Crear mascota
+    </button>
+</form>

@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoFinal.Context;
 using ProyectoFinal.Models;
+using System.Web;
+using ProyectoFinal.BDhelper;
+
 
 namespace ProyectoFinal.Controllers
 {
@@ -25,6 +28,29 @@ namespace ProyectoFinal.Controllers
               return _context.Mascotas != null ? 
                           View(await _context.Mascotas.ToListAsync()) :
                           Problem("Entity set 'ProyectoFinalDatabaseContext.Mascotas'  is null.");
+        }
+
+        public async Task<IActionResult> CrearMascota(
+            String idRefugio,
+            String nom,
+            String pers,
+            String salud,
+            int edad,
+            int cantDue,
+            int peso,
+            bool vac,
+            IFormFile ImageData
+            )
+        {
+            if(nom != null && pers != null && pers != null && salud != null){
+                await BDhelp.CrearMascota(idRefugio,nom,pers,salud,edad, cantDue,peso,vac, ImageData,_context);
+            }
+            Refugio refugio = await _context.Refugios.FirstOrDefaultAsync(refu => refu.Id == int.Parse(idRefugio));
+            ViewData["RefugioId"] = refugio.Id.ToString();
+            ViewData["RefugioNombre"] = refugio.Nombre;
+
+            return View();
+
         }
 
         // GET: Mascota/Details/5

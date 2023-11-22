@@ -1,0 +1,38 @@
+﻿@model ProyectoFinal.Models.Refugio
+
+@{
+    ViewData["Title"] = "Crear Refugio";
+}
+
+
+<h1>Crear refugio</h1>
+@{
+    if(Model == null)
+    {
+        <form action="/Refugio/CrearRefugio" method="post" enctype="multipart/form-data">
+
+            <input type="text" class="form-control" name="Nom" placeholder="Nombre" required autofocus>
+            <input type="text" class="form-control" name="des" placeholder="Descripcion" required>
+            <input type="text" class="form-control" name="dir" placeholder="Direccion" required>
+            <input type="text" class="form-control" name="hor" placeholder="Horario" required>
+            <input type="file" class="form-control" name="ImageData">
+
+
+            <button class="btn btn-primary" type="submit">
+                Crear Refugio
+            </button>
+        </form>
+    }
+    else
+    {
+        <div class="container">
+            <p>Nombre: @Model.Nombre</p>
+            <p>Descripcion: @Model.Descripcion</p>
+            <p>Horario: @Model.Horario</p>
+            <p>Direccion: @Model.direccion</p>
+        </div>
+
+        <a class="btn btn-primary" asp-controller="Mascota" asp-action="CrearMascota" asp-route-idRefugio="@Model.Id.ToString()">Añadir Mascota a Refugio</a>
+    }
+
+}
