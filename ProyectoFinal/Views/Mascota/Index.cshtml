@@ -6,20 +6,23 @@
 
 <h1>Mascotas</h1>
 
-
+<div class="container">
+    <div class="row row-cols-3">
 @foreach (var item in Model) {
-    <a>
-        <div>
+
+        <div class="col">
             <div>
                 <h2> @Html.DisplayFor(modelItem => item.Nombre)</h2>
             </div>
             <div>
-                <img>
+                <img src="data:image/png;base64,@Convert.ToBase64String(item.Imagen)" class="card-img-top m-1" alt="..." style="height:9rem; width:9rem;">
             </div>
             <div>
-                <h2>Ver Mascotas</h2>
+                <a class="btn btn-primary" asp-controller="Mascota" asp-action="UnaMascota" asp-route-idMascota="@item.Id"> Ver Mascota</a>
             </div>
         </div>
-    </a>
+
 }
+    </div>
+</div>
 

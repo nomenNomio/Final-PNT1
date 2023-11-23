@@ -36,6 +36,17 @@ namespace ProyectoFinal.Controllers
 
         }
 
+        public async Task<IActionResult> UnRefugio(String refugioID) {
+
+            Refugio refugio = _context.Refugios.Where(r => r.Id == int.Parse(refugioID))
+                .Include(r => r.Mascotas)
+                .FirstOrDefault();
+                
+            return refugio != null ?
+                View(refugio) :
+                Problem("Entity set 'ProyectoFinalDatabaseContext.Refugio'  is null.");
+        }
+
         // GET: Refugio/Details/5
         public async Task<IActionResult> Details(int? id)
         {

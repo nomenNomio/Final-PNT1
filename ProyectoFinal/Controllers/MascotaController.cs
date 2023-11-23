@@ -30,6 +30,18 @@ namespace ProyectoFinal.Controllers
                           Problem("Entity set 'ProyectoFinalDatabaseContext.Mascotas'  is null.");
         }
 
+        public async Task<IActionResult> UnaMascota(String idMascota) {
+
+            Mascota mascota = _context.Mascotas.Where(m => m.Id == int.Parse(idMascota))
+                                .Include(r => r.SuRefugio)
+                                .FirstOrDefault();
+
+            return mascota != null ?
+            View(mascota) :
+            Problem("Entity set 'ProyectoFinalDatabaseContext.Mascotas'  is null.");
+
+        }
+
         public async Task<IActionResult> CrearMascota(
             String idRefugio,
             String nom,
